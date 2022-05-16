@@ -1,0 +1,39 @@
+name : Docker-CI
+trigger:
+  branches:
+    include:
+      - master
+ 
+pool:
+  vmImage: 'ubuntu-latest'
+ 
+variables:
+  ImageName: 'amal-mejri/nginx:$(Build.BuildId)'
+ 
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:  
+  - job: Build
+    displayName: Build and push Docker image
+    steps:
+    - task: Docker@2
+      displayName: 'Build the Docker image'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: 'build'
+        dockerFile: '**/Dockerfile'
+        imageName: '$(ImageName)'
+        useDefaultContext: false
+        includeLatestTag: true
+        buildContext: '.'
+     
+    - task: Docker@2
+      displayName: 'Push the Docker image to Dockerhub'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: 'push'
+        imageName: '$(ImageName)'
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
