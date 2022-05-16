@@ -37,14 +37,5 @@ stages:
         command: 'push'
         imageName: '$(ImageName)'
       condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
-    - task: VSTest@2
-      inputs:
-        testSelector: 'testAssemblies'
-        testAssemblyVer2: |
-          **\*nginx*.dll
-          !**\*TestAdapter.dll
-          !**\obj\**
-        searchFolder: '$(System.DefaultWorkingDirectory)'
-        runTestsInIsolation: true
-        codeCoverageEnabled: true
+
         
