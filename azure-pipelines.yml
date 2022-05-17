@@ -6,6 +6,7 @@ trigger:
  
 pool:
   name: cgi-ado-agents-small
+  
  
 variables:
   ImageName: 'amal-mejri/nginx:$(Build.BuildId)'
