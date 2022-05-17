@@ -5,7 +5,8 @@ trigger:
       - master
  
 pool:
-  name: cgi-ado-agents-small
+    vmImage: "ubuntu-latest"
+
   
  
 variables:
