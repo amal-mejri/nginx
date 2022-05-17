@@ -1,4 +1,5 @@
 name : Docker-CI
+
 trigger:
   branches:
     include:
@@ -13,12 +14,20 @@ variables:
   ImageName: 'amal-mejri/nginx:$(Build.BuildId)'
  
 stages:
+
 - stage: Build
   displayName: Build image
   jobs:  
   - job: Build
     displayName: Build and push Docker image
     steps:
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Write your commands here
+          echo "show me"
+          whoami
     - task: Docker@2
       displayName: 'Build the Docker image'
       inputs:
