@@ -30,7 +30,9 @@ stages:
         useDefaultContext: false
         includeLatestTag: true
         buildContext: '.'
-     
+- stage: Push
+  displayName: Push
+  jobs:
   - job: Push
     displayName: Push
     steps: 
